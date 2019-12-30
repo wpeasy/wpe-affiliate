@@ -1,2 +1,104 @@
-SETTINGS
 <?php
+$settingsConf = \WPEAffiliate\Modules\AffiliateAdverts\Controller\ModuleController::$moduleConfig['settings'];
+$optionName = $settingsConf['optionName'];
+$settings = get_option($optionName);
+$settingsNonce = wp_create_nonce(\WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$nonceAction)
+?>
+
+<form method="post" novalidate="novalidate" id="settingsForm">
+    <input type="hidden" id="_wpnonce" name="_wpnonce" value="<?= $settingsNonce ?>"/>
+    <div class="container-fluid wpe-div-table table-striped">
+        <h2>WPEasy User Details:</h2>
+        <div class="row">
+            <div class="col-12 col-sm-2">
+                Registered Email
+            </div>
+            <div class="col-12 col-sm-5">
+                <div class="input-group">
+                    <input
+                            type="email"
+                            class="form-control"
+                            name="<?= $optionName ?>[email]"
+                            placeholder="EMAIL"
+                            value="<?= @$settings['email'] ?>"
+                    />
+                    <div class="input-group-append">
+                        <button id="getAffiliateIdBtn" class="btn btn-outline-secondary" type="button"><span
+                                    class="wpe-spinner-small d-none"></span>Get My ID
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-2">
+                ID
+            </div>
+            <div class="col-12 col-sm-5">
+                <input
+                        type="text"
+                        class="form-control"
+                        name="<?= $optionName ?>[id]"
+                        placeholder="WPEasy Affiliate ID"
+                        value="<?= @$settings['id'] ?>"
+                />
+            </div>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary " id="submitButton">Save Changes <span
+                class="wpe-spinner-small d-none"></span></button>
+
+</form>
+<script>
+    (function ($) {
+
+        let $settingsFrom = $('#settingsForm');
+        let $submitButtonSpinner = $('#submitButton .wpe-spinner-small');
+
+        $('#getAffiliateIdBtn').on('click', function (e) {
+            e.preventDefault();
+            let $this = $(this);
+            let $spinner = $this.find('.wpe-spinner-small');
+            let wpe = window.wpeAffiliate;
+
+            $spinner.removeClass('d-none');
+            wpe.Api.doCall()
+                .then(function (result) {
+                    console.log('RES:', response);
+                })
+                .catch(function (err) {
+                    console.log('ERR:', err);
+                })
+                .finally(function () {
+                    $spinner.addClass('d-none');
+                })
+
+
+        })
+
+
+        $settingsFrom.on('submit', function (e) {
+            e.preventDefault();
+            $submitButtonSpinner.removeClass('d-none');
+            $.post(
+                {
+                    url: window.ajaxurl,
+                    data: {action: 'wpe_affiliate_save', nonce: $('#_wpnonce').val(), data: $(this).serialize()}
+                }
+            )
+                .done(function (result) {
+                    //location.reload();
+                })
+                .fail(function (err) {
+                    console.log('ERROR', err);
+
+                })
+                .always(function () {
+                    $submitButtonSpinner.addClass('d-none');
+                })
+        })
+    })(jQuery)
+</script>
