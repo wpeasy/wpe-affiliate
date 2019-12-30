@@ -1,0 +1,39 @@
+@import "variables";
+
+.wpe-instructions-container {
+  padding: $spacing-medium;
+  background-color: #eafaff;
+
+  h2{
+    margin:0;
+    padding: 0 0 $spacing-medium;
+    font-size: 22px;
+  }
+}
+#wpe-feedback-container{
+  padding: $spacing-medium;
+  &.wpe-error{
+    padding: $spacing-medium;
+    background: #9d0000;
+    color: white
+  }
+
+  &.wpe-success{
+    padding: $spacing-medium;
+    background: #039d3f;
+    color: white
+  }
+
+  &.wpe-warning{
+    padding: $spacing-medium;
+    background: #9d7706;
+    color: white
+  }
+}
+
+#wpe-affiliate-sc-container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 3px;
+  box-shadow: 0 0 15px rgba(0,0,0,.2);
+}

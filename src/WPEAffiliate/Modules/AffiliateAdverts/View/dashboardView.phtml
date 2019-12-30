@@ -1,0 +1,31 @@
+<?php $commonNonce = \WPEAffiliate\Modules\AffiliateAdverts\Controller\ModuleController::$ajaxNonce;
+?>
+<div id="wpeAffiliateContainer" class="fade">
+    <div class="wpe-card-container mb-1 wpe-card-info">
+        <div class="wpe-card-header p-2">
+            About this module
+        </div>
+        <div class="wpe-card-body p-2">
+            <p>This module makes it easy for Affiliates to get their Banner codes</p>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item ">
+            <a class="nav-link active" tabindex="-1" data-toggle="tab" href="#affiliateSettings">Settings</a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" tabindex="-1" data-toggle="tab" href="#affiliateBanners">Banners</a>
+        </li>
+    </ul>
+    <div class="tab-content container-fluid">
+        <div class="tab-pane active" id="affiliateSettings">
+			<?php include __DIR__ . '/settingsView.phtml' ?>
+        </div>
+        <div class="tab-pane fade" id="affiliateBanners">
+	        <?php include __DIR__ . '/bannersView.phtml' ?>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

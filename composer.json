@@ -1,0 +1,26 @@
+{
+    "name": "wpeasy/wpe-affiliate",
+    "description": "WPEasy Tools for Affiliates",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Alan Balir",
+            "email": "alan@wpeasy.net"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/wpeasy/wpeasy-library.git"
+        }
+    ],
+    "require": {
+        "wpeasy/wpeasy-library": "1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "WPEAffiliate\\": "src/WPEAffiliate/"
+        }
+    }
+}

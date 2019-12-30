@@ -1,0 +1,31 @@
+
+#generatedLink, #generatedShortcode {
+  padding: 15px;
+  background: #f0f0f0;
+  border: 2px solid #ddd;
+  position: relative;
+
+  &:hover{
+    border: 2px solid #7aafda;
+    cursor: pointer;
+  }
+
+  &.copied{
+    background-color: #dfffee !important;
+    color: #000 !important;
+    &:after{
+      content: 'copied';
+      position: absolute;
+      top:0;
+      right:0;
+      padding: 3px;
+      background-color: green;
+      color: white;
+    }
+  }
+}
+
+#generatedLinkInput, #generatedShortcodeInput{
+  position: absolute;
+  top: -2000px;
+}

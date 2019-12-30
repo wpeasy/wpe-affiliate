@@ -1,0 +1,54 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "f3b89b208715a7cf34ae17e48e20d1ff",
+    "packages": [
+        {
+            "name": "wpeasy/wpeasy-library",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wpeasy/wpeasy-library.git",
+                "reference": "1a0a4ddff1635e1f37111d834eb8ff105e4ea118"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wpeasy/wpeasy-library/zipball/1a0a4ddff1635e1f37111d834eb8ff105e4ea118",
+                "reference": "1a0a4ddff1635e1f37111d834eb8ff105e4ea118",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WPEasyLibrary\\": "src/WPEasyLibrary/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Alan Blair",
+                    "email": "alan@wpeasy.net"
+                }
+            ],
+            "description": "Library used by WPEasy WordPress plugins",
+            "support": {
+                "source": "https://github.com/wpeasy/wpeasy-library/tree/v1.0.6",
+                "issues": "https://github.com/wpeasy/wpeasy-library/issues"
+            },
+            "time": "2019-12-30T03:47:39+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
