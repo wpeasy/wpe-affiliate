@@ -1,7 +1,7 @@
 <?php
 
 
-namespace WPEasyAnalyser\Modules\Analyser\Controller;
+namespace WPEAffiliate\Modules\AffiliateAdverts\Controller;
 
 
 class SettingsController {

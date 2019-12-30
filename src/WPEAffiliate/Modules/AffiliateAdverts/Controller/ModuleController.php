@@ -3,10 +3,8 @@
 namespace WPEAffiliate\Modules\AffiliateAdverts\Controller;
 
 use WPEAffiliate\Application\Controller\ApplicationController;
-use WPEasyAnalyser\Modules\Analyser\Controller\SettingsController;
 use WPEasyLibrary\Helpers\View\ViewHelper;
 use WPEasyLibrary\Interfaces\IWordPressModule;
-use WPEasyLibrary\WordPress\WPEasyApplication;
 
 class ModuleController implements IWordPressModule {
 
