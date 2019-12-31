@@ -31,6 +31,8 @@ class ModuleController implements IWordPressModule {
         SettingsController::init( self::$moduleConfig );
 
         add_action( 'admin_init', [ __CLASS__, 'adminInit' ] );
+
+        
     }
 
     static function adminInit() {
@@ -60,5 +62,7 @@ class ModuleController implements IWordPressModule {
     /*************************
      * AJAX methods
      */
+
+
 
 }

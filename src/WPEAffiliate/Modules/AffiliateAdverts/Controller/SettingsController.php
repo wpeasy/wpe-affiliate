@@ -11,7 +11,8 @@ class SettingsController {
 
 	static $currentOptions;
 
-	static $nonceAction = 'wpe_affiliate';
+	static $noncePrefix;
+	static $saveNonceAction;
 
 	static function init( $conf )
 	{
@@ -19,17 +20,20 @@ class SettingsController {
 		self::$_init = true;
 
 		$settingsConfig  = $conf['settings'];
+		self::$noncePrefix = $settingsConfig ['optionName'];
+		self::$saveNonceAction = self::$noncePrefix . '_save';
 		self::$settingsConfig = $settingsConfig;
+
 		self::$currentOptions = get_option($settingsConfig ['optionName']);
 
-		add_action( self::$nonceAction . '_save', [__CLASS__, 'saveSettings']);
+		add_action( 'wp_ajax_' . self::$saveNonceAction , [__CLASS__, 'saveSettings']);
 	}
 
 	static function saveSettings()
 	{
-		if ( !wp_verify_nonce( $_REQUEST['nonce'], self::$nonceAction)) {
+		if ( !wp_verify_nonce( $_REQUEST['nonce'], self::$saveNonceAction)) {
             status_header( 401 );
-			exit("Warning: No access");
+			exit("Warning: No access:" );
 		}
 
 		$optionName = self::$settingsConfig['optionName'];

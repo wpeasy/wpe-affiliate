@@ -2,12 +2,13 @@
 $settingsConf = \WPEAffiliate\Modules\AffiliateAdverts\Controller\ModuleController::$moduleConfig['settings'];
 $optionName = $settingsConf['optionName'];
 $settings = get_option($optionName);
-$settingsNonce = wp_create_nonce(\WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$nonceAction)
+$saveSettingsNonceAction = \WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$saveNonceAction;
+$saveSettingsNonce = wp_create_nonce($saveSettingsNonceAction);
 ?>
 
 <form method="post" novalidate="novalidate" id="settingsForm">
-    <div id="apiErrorAlert" class="alert alert-danger fade"></div>
-    <input type="hidden" id="_wpnonce" name="_wpnonce" value="<?= $settingsNonce ?>"/>
+    <div id="apiResponseFeedback" class="alert fade"></div>
+    <input type="hidden" id="_wpnonce" name="_wpnonce" value="<?= $saveSettingsNonce ?>"/>
     <div class="container-fluid wpe-div-table table-striped">
         <h2>WPEasy User Details:</h2>
         <div class="row">
@@ -60,56 +61,71 @@ $settingsNonce = wp_create_nonce(\WPEAffiliate\Modules\AffiliateAdverts\Controll
 
         let $settingsFrom = $('#settingsForm');
         let $submitButtonSpinner = $('#submitButton .wpe-spinner-small');
+        let $apiResponseFeedback = $('#apiResponseFeedback');
 
         $('#getAffiliateIdBtn').on('click', function (e) {
             e.preventDefault();
             let $this = $(this);
             let $spinner = $this.find('.wpe-spinner-small');
             let $affiliateID = $('#affiliateID');
-            let $apiErrorAlert = $('#apiErrorAlert');
             let wpe = window.wpeAffiliate;
 
+            //Reset spinners and alerts
             $spinner.removeClass('d-none');
+            $apiResponseFeedback.removeClass('alert-success alert-warning alert-danger');
+            $apiResponseFeedback.removeClass('show');
+
             wpe.Api.doCall('/user/getAffiliateByEmail', {'email' : $('#affiliateEmail').val()})
                 .then(function (result) {
                     if(result.data && result.data.affiliate.affiliate_id){
                         $affiliateID.val(result.data.affiliate.affiliate_id);
+                        $apiResponseFeedback.html('ID found and inserted in to input');
+                        $apiResponseFeedback.addClass('alert-success');
                     }else{
                         $affiliateID.val('');
+                        $apiResponseFeedback.html('User found but is not an affiliate');
+                        $apiResponseFeedback.addClass('alert-warning');
                     }
                 })
                 .catch(function (err) {
                     console.log('ERR:', err);
-                    $apiErrorAlert.html('ERROR (' + err.status + ') ' + err.statusText);
-                    $apiErrorAlert.addClass('show');
+                    $apiResponseFeedback.html('ERROR (' + err.status + ') ' + err.statusText);
+                    $apiResponseFeedback.addClass('alert-danger');
                     $affiliateID.val('');
                 })
                 .finally(function () {
-                    $spinner.removeClass('show');
+                    console.info('FINALLY');
+                    $apiResponseFeedback.addClass('show');
+                    $spinner.addClass('d-none');
                 })
-
-
         })
 
 
         $settingsFrom.on('submit', function (e) {
             e.preventDefault();
             $submitButtonSpinner.removeClass('d-none');
+            $apiResponseFeedback.removeClass('alert-success alert-warning alert-danger');
+            $apiResponseFeedback.removeClass('show');
+
             $.post(
                 {
                     url: window.ajaxurl,
-                    data: {action: 'wpe_affiliate_save', nonce: $('#_wpnonce').val(), data: $(this).serialize()}
+                    data: {action: "<?= $saveSettingsNonceAction ?>", nonce: $('#_wpnonce').val(), data: $(this).serialize()}
                 }
             )
                 .done(function (result) {
-                    //location.reload();
+                    $apiResponseFeedback.html('Settings Saved');
+                    $apiResponseFeedback.addClass('alert-success');
                 })
                 .fail(function (err) {
                     console.log('ERROR', err);
+                    $apiResponseFeedback.html('ERROR (' + err.status + ') ' + err.statusText);
+                    $apiResponseFeedback.addClass('alert-danger');
 
                 })
                 .always(function () {
                     $submitButtonSpinner.addClass('d-none');
+                    $apiResponseFeedback.addClass('show');
                 })
         })
     })(jQuery)
