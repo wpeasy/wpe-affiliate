@@ -6,6 +6,7 @@ $settingsNonce = wp_create_nonce(\WPEAffiliate\Modules\AffiliateAdverts\Controll
 ?>
 
 <form method="post" novalidate="novalidate" id="settingsForm">
+    <div id="apiErrorAlert" class="alert alert-danger fade"></div>
     <input type="hidden" id="_wpnonce" name="_wpnonce" value="<?= $settingsNonce ?>"/>
     <div class="container-fluid wpe-div-table table-striped">
         <h2>WPEasy User Details:</h2>
@@ -16,6 +17,7 @@ $settingsNonce = wp_create_nonce(\WPEAffiliate\Modules\AffiliateAdverts\Controll
             <div class="col-12 col-sm-5">
                 <div class="input-group">
                     <input
+                            id="affiliateEmail"
                             type="email"
                             class="form-control"
                             name="<?= $optionName ?>[email]"
@@ -37,6 +39,7 @@ $settingsNonce = wp_create_nonce(\WPEAffiliate\Modules\AffiliateAdverts\Controll
             </div>
             <div class="col-12 col-sm-5">
                 <input
+                        id="affiliateID"
                         type="text"
                         class="form-control"
                         name="<?= $optionName ?>[id]"
@@ -62,18 +65,27 @@ $settingsNonce = wp_create_nonce(\WPEAffiliate\Modules\AffiliateAdverts\Controll
             e.preventDefault();
             let $this = $(this);
             let $spinner = $this.find('.wpe-spinner-small');
+            let $affiliateID = $('#affiliateID');
+            let $apiErrorAlert = $('#apiErrorAlert');
             let wpe = window.wpeAffiliate;
 
             $spinner.removeClass('d-none');
-            wpe.Api.doCall()
+            wpe.Api.doCall('/user/getAffiliateByEmail', {'email' : $('#affiliateEmail').val()})
                 .then(function (result) {
-                    console.log('RES:', response);
+                    if(result.data && result.data.affiliate.affiliate_id){
+                        $affiliateID.val(result.data.affiliate.affiliate_id);
+                    }else{
+                        $affiliateID.val('');
+                    }
                 })
                 .catch(function (err) {
                     console.log('ERR:', err);
+                    $apiErrorAlert.html('ERROR (' + err.status + ') ' + err.statusText);
+                    $apiErrorAlert.addClass('show');
+                    $affiliateID.val('');
                 })
                 .finally(function () {
-                    $spinner.addClass('d-none');
+                    $spinner.removeClass('show');
                 })
 
 
