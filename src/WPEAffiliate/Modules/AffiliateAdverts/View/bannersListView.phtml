@@ -1,0 +1,50 @@
+<?php
+$srcRoot = $banners['srcRoot'];
+$images = $banners['images']
+?>
+<div class="container-fluid" id="affiliateBannerImages">
+    <?php for( $i = 0; $i < count($images); $i++ ): ?>
+        <div class="row mb-3">
+            <div class="col">
+                <img
+                    data-banner="<?= $images[$i]['name'] ?>"
+                    src="<?= $srcRoot . $images[$i]['name'] ?>"
+                    width="<?= $images[$i]['width'] ?>"
+                    height="<?= $images[$i]['height'] ?>"
+                />
+            </div>
+            <?php $i++ ?>
+            <div class="col">
+                <img
+                    data-banner="<?= $images[$i]['name'] ?>"
+                    src="<?= $srcRoot . $images[$i]['name'] ?>"
+                    width="<?= $images[$i]['width'] ?>"
+                    height="<?= $images[$i]['height'] ?>"
+                />
+            </div>
+        </div>
+    <?php endfor; ?>
+</div>
+<script>
+    (function ($) {
+        let $images = $('#affiliateBannerImages img');
+        $images.on('click', function (e) {
+            console.log(
+                window.wpeAffiliate.linkGenerator(
+                    <?= \WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$currentOptions['id'] ?>,
+                    this.src,
+                    this.width,
+                    this.height
+                )
+            );
+            console.log(
+                window.wpeAffiliate.shortcodeGenerator(
+                    <?= \WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$currentOptions['id'] ?>,
+                    this.dataset['banner']
+                )
+            );
+            console.log(this.dataset);
+        })
+
+    })(jQuery);
+</script>

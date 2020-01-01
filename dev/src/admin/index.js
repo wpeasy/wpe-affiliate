@@ -2,8 +2,8 @@ import './scss/style.scss'
 import WHMCS_CustomApi from './services/api'
 
 import Feedback from './js/feedback.js'
-import {generate as linkGenerator} from "./js/link-generator";
-import {generate as shortcodeGenerator} from "./js/shortcode-generator";
+import linkGenerator from "./js/link-generator";
+import shortcodeGenerator from "./js/shortcode-generator";
 
 
 
@@ -17,9 +17,4 @@ window.wpeAffiliate = {
     shortcodeGenerator: shortcodeGenerator
 };
 
-let $getIdButon, $emailField, $affiliateIdField, feedbackInstance, $linksContainer, $generatedLinkContainer, $generatedShortcodeContainer
-
-(function ($) {
-
-})(jQuery)
 

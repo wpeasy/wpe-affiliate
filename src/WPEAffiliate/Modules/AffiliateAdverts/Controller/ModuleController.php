@@ -32,7 +32,9 @@ class ModuleController implements IWordPressModule {
 
         add_action( 'admin_init', [ __CLASS__, 'adminInit' ] );
 
-        
+        add_action( 'wp_ajax_wpe_affiliate_get_adverts', [ __CLASS__, 'wpe_affiliate_get_adverts' ] );
+
+
     }
 
     static function adminInit() {
@@ -62,6 +64,25 @@ class ModuleController implements IWordPressModule {
     /*************************
      * AJAX methods
      */
+
+    static function wpe_affiliate_get_adverts() {
+        if ( ! wp_verify_nonce( $_REQUEST['nonce'], self::$nonceAction ) ) {
+            status_header( 401 );
+            die( "Not Authorized" );
+        }
+        $id = SettingsController::$currentOptions['id'];
+        if((int) $id <= 0){
+            die( ViewHelper::getView( dirname( __DIR__ ) . '/View/noBannersView.phtml' ) );
+        }else{
+            $out = ViewHelper::getView(
+              dirname(__DIR__) . '/View/bannersListView.phtml',
+              [
+                  'banners' => self::$moduleConfig['banners']
+              ]
+            );
+            die($out);
+        }
+    }
 
 
 

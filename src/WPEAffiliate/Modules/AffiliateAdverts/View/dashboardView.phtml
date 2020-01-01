@@ -1,4 +1,4 @@
-<?php $commonNonce = \WPEAffiliate\Modules\AffiliateAdverts\Controller\ModuleController::$ajaxNonce;
+<?php $ajaxNonce = \WPEAffiliate\Modules\AffiliateAdverts\Controller\ModuleController::$ajaxNonce;
 ?>
 <div id="wpeAffiliateContainer" class="fade">
     <div class="wpe-card-container mb-1 wpe-card-info">
@@ -6,7 +6,7 @@
             About this module
         </div>
         <div class="wpe-card-body p-2">
-            <p>This module makes it easy for Affiliates to get their Banner codes</p>
+            <p>This module makes it easy for Affiliates to get their Banner code</p>
         </div>
     </div>
     <ul class="nav nav-tabs">
@@ -14,7 +14,7 @@
             <a class="nav-link active" tabindex="-1" data-toggle="tab" href="#affiliateSettings">Settings</a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" tabindex="-1" data-toggle="tab" href="#affiliateBanners">Banners</a>
+            <a class="nav-link" tabindex="-1" data-toggle="tab" href="#affiliateBanners" data-ajax-action="wpe_affiliate_get_adverts">Banners</a>
         </li>
     </ul>
     <div class="tab-content container-fluid">
@@ -22,14 +22,21 @@
 			<?php include __DIR__ . '/settingsView.phtml' ?>
         </div>
         <div class="tab-pane fade" id="affiliateBanners">
-	        <?php include __DIR__ . '/bannersView.phtml' ?>
+	        <?php include __DIR__ . '/bannersTabView.phtml' ?>
         </div>
     </div>
 </div>
 <script>
     (function ($) {
+        let nonceOnlyDataProvider = ()=>{
+            return {nonce: "<?= $ajaxNonce ?>" }
+        }
+
         $(document).ready(function () {
             $('#wpeAffiliateContainer').addClass('show');
+
+            //Initialise all reports that run from a trigger.
+            $('.report-run-on-event').ajaxToHtmlContainer({logEvents: true, dataProvider: nonceOnlyDataProvider});
         })
     })(jQuery)
 
