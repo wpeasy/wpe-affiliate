@@ -3,48 +3,69 @@ $srcRoot = $banners['srcRoot'];
 $images = $banners['images']
 ?>
 <div class="container-fluid" id="affiliateBannerImages">
-    <?php for( $i = 0; $i < count($images); $i++ ): ?>
+    <?php for ($i = 0; $i < count($images); $i++): ?>
         <div class="row mb-3">
             <div class="col">
                 <img
+                    class="wpeClickable"
                     data-banner="<?= $images[$i]['name'] ?>"
-                    src="<?= $srcRoot . $images[$i]['name'] ?>"
-                    width="<?= $images[$i]['width'] ?>"
-                    height="<?= $images[$i]['height'] ?>"
+                        src="<?= $srcRoot . $images[$i]['name'] ?>"
+                        width="<?= $images[$i]['width'] ?>"
+                        height="<?= $images[$i]['height'] ?>"
                 />
             </div>
             <?php $i++ ?>
             <div class="col">
                 <img
+                    class="wpeClickable"
                     data-banner="<?= $images[$i]['name'] ?>"
-                    src="<?= $srcRoot . $images[$i]['name'] ?>"
-                    width="<?= $images[$i]['width'] ?>"
-                    height="<?= $images[$i]['height'] ?>"
+                        src="<?= $srcRoot . $images[$i]['name'] ?>"
+                        width="<?= $images[$i]['width'] ?>"
+                        height="<?= $images[$i]['height'] ?>"
                 />
             </div>
         </div>
     <?php endfor; ?>
+
+    <div id="codeModal" class="modal">
+        <h3>HTML Code</h3>
+        <div class="wpe_clickToCopy" id="codeModalHtml"></div>
+        <h3>WordPress Shortcode</h3>
+        <div class="wpe_clickToCopy" id="codeModalShortcode"></div>
+    </div>
+
 </div>
 <script>
     (function ($) {
         let $images = $('#affiliateBannerImages img');
+        let $modal = $('#codeModal'),
+            $codeModalHtml = $('#codeModalHtml'),
+            $codeModalShortcode = $('#codeModalShortcode');
+
+        let $clickToCopy = $('#codeModal .wpe_clickToCopy').clickToCopy({logEvents: true});
+
+
         $images.on('click', function (e) {
-            console.log(
-                window.wpeAffiliate.linkGenerator(
-                    <?= \WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$currentOptions['id'] ?>,
-                    this.src,
-                    this.width,
-                    this.height
-                )
+
+            $.fn.clickToCopy.clearCopiedFlags();
+            let text = window.wpeAffiliate.linkGenerator(
+                <?= \WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$currentOptions['id'] ?>,
+                this.src,
+                this.width,
+                this.height
             );
-            console.log(
-                window.wpeAffiliate.shortcodeGenerator(
-                    <?= \WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$currentOptions['id'] ?>,
-                    this.dataset['banner']
-                )
+
+            $codeModalHtml.text(text);
+
+            text = window.wpeAffiliate.shortcodeGenerator(
+                <?= \WPEAffiliate\Modules\AffiliateAdverts\Controller\SettingsController::$currentOptions['id'] ?>,
+                this.dataset['banner']
             );
-            console.log(this.dataset);
+            $codeModalShortcode.text(text);
+
+            $modal.modal();
         })
+
 
     })(jQuery);
 </script>
