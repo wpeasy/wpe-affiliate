@@ -3,7 +3,7 @@
  * Plugin Name: WPEasy Affiliate
  * Plugin URI:
  * Description: UI for Affiliates to generate HTML links and Shortcodes for WPEasy Adverts
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Alan Blair
  * Author URI:
  * Text Domain: wpeasy

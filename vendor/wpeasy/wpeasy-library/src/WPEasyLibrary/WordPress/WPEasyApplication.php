@@ -123,7 +123,7 @@ HTML;
     {
         $callingPluginURL = self::$firstCallingPluginConf['pluginURL'];
         $assetsURL = $callingPluginURL . 'vendor/wpeasy/wpeasy-library/assets/';
-        wp_register_style( 'wpe-lib-vendor', $assetsURL . 'css/wpe-lib-vendor.bundle');
+        wp_register_style( 'wpe-lib-vendor', $assetsURL . 'css/wpe-lib-vendor.bundle.css');
         wp_register_style( 'wpe-lib-common', $assetsURL . 'css/wpe-lib-common.style.css', ['wpe-lib-vendor']);
 
         wp_register_script('wpe-lib-vendor', $assetsURL . 'js/wpe-lib-vendor.bundle.js', ['jquery'], false,true);
