@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="wpdev.wpevolve.net">
+  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="michaelstuf.wpdev.wpevolve.net">
     <serverData>
-      <paths name="wpdev.wpevolve.net">
+      <paths name="michaelstuf.wpdev.wpevolve.net">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/wp-content/plugins/wpe-affilate" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/dev" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="ea08e741-a42b-4496-9633-ec9882333fb4" name="wpdev.wpevolve.net" url="http://wpdev.wpevolve.net">
-        <fileTransfer host="wpdev.wpevolve.net" port="21" rootFolder="/public_html/wp-content/plugins/wpe-affiliate">
+      <webServer id="0e3b3c9c-9abb-4478-be6d-838dc0b144d4" name="michaelstuf.wpdev.wpevolve.net" url="http://michaelstuf.wpdev.wpevolve.net">
+        <fileTransfer host="michaelstuf.wpdev.wpevolve.net" port="21" rootFolder="/public_html">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
