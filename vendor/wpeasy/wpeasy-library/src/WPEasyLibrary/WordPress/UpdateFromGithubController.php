@@ -22,24 +22,24 @@ class UpdateFromGithubController
      * UpdateFromGithubController constructor.
      * @param $pluginFile
      * @param $gitHubUsername
-     * @param $gitHubProjectName
+     * @param $repo
      * @param string $accessToken
      *
      * $pluginFile WordPress Plugin file, used to determine plugin details
      * Usage:
      *if ( is_admin() ) {
-    new UpdateController( __FILE__, 'github-user', "repository" );
-    }
+    * new UpdateController( __FILE__, 'github-user', "repository" );
+    * }
      *
      */
-    function __construct($pluginFile, $gitHubUsername, $gitHubProjectName, $accessToken = '' ) {
+    function __construct($pluginFile, $gitHubUsername, $repo, $accessToken = '' ) {
         add_filter( "pre_set_site_transient_update_plugins", array( $this, "setTransitent" ) );
         add_filter( "plugins_api", array( $this, "setPluginInfo" ), 10, 3 );
         add_filter( "upgrader_post_install", array( $this, "postInstall" ), 10, 3 );
 
         $this->pluginFile = $pluginFile;
         $this->username = $gitHubUsername;
-        $this->repo = $gitHubProjectName;
+        $this->repo = $repo;
         $this->accessToken = $accessToken;
 
     }
@@ -82,22 +82,33 @@ class UpdateFromGithubController
 
     // Push in plugin version information to get the update notification
     public function setTransitent( $transient ) {
+        //temp test
+        /*
+        $file = __DIR__ . '/transient-' . time() . '.json';
+        file_put_contents($file, json_encode($transient));
+        */
+
+        //|| !isset($transient->checked[$this->slug])
+
+
         // If we have checked the plugin data before, don't re-check
         if ( empty( $transient->checked ) ) {
             return $transient;
         }
+
+        //file_put_contents(__DIR__ . '/checked-' .time() . '.txt', json_encode($transient->checked ));
 
         // Get plugin & GitHub release information
         $this->initPluginData();
         $this->getRepoReleaseInfo();
 
         // Check the versions if we need to do an update
-        $doUpdate = version_compare( $this->githubAPIResult->tag_name, $transient->checked[$this->slug] );
+        $doUpdate = version_compare( $this->githubAPIResult->tag_name, @$transient->checked[$this->slug] );
 
         if(WP_DEBUG) file_put_contents(__DIR__ . '/doUpdate.json', json_encode(
             [
                 'tag_name' => $this->githubAPIResult->tag_name,
-                'checked'=> $transient->checked[$this->slug]
+                'checked'=> @$transient->checked[$this->slug]
             ]
         ), JSON_PRETTY_PRINT);
 

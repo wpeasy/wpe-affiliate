@@ -5,7 +5,7 @@
       <paths name="michaelstuf.wpdev.wpevolve.net">
         <serverdata>
           <mappings>
-            <mapping deploy="/wp-content/plugins/wpe-affilate" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/wp-content/plugins/wpe-affiliate" local="$PROJECT_DIR$" web="/" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/dev" />

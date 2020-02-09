@@ -29,6 +29,7 @@ class ModuleController implements IWordPressModule {
         self::$moduleConfig = require_once dirname( __DIR__ ) . '/config.php';
         ApplicationController::registerModule( __CLASS__, self::$moduleConfig );
         SettingsController::init( self::$moduleConfig );
+        self::_addShortcodes();
 
         add_action( 'admin_init', [ __CLASS__, 'adminInit' ] );
 
@@ -82,6 +83,56 @@ class ModuleController implements IWordPressModule {
             );
             die($out);
         }
+    }
+
+    /***********************************
+     *  Shortcodes
+     */
+    private static function _addShortcodes()
+    {
+        add_shortcode('wpe_affiliate', [__CLASS__, 'wpe_affiliate_shortcode']);
+    }
+
+
+    /**
+     * @param $atts
+     * @return bool|string
+     */
+    static function wpe_affiliate_shortcode($atts)
+    {
+        if(empty($atts['affiliate_id'])){
+            echo 'No affiliate id provided';
+            return false;
+        }
+
+        if(empty($atts['banner'])){
+            echo 'No banner id provided';
+            return false;
+        }
+
+        $affiliateID = $atts['affiliate_id'];
+
+        $conf = self::$moduleConfig;
+        $bannerConf = $conf['banners'];
+
+        $bannerSrc = $bannerConf['srcRoot'] . $atts['banner'];
+        $width = 0;
+        $height = 0;
+        foreach ($bannerConf['images'] as $banner){
+            if( $banner['name'] === $atts['banner']){
+                $width = $banner['width'];
+                $height = $banner['height'];
+                break;
+            }
+        }
+
+        $out = <<<OUT
+<a href="https://store.wpeasy.net/aff.php?aff={$affiliateID}">
+<img src="{$bannerSrc}" width="{$width}" height="{$height}" border="0"
+></a>
+OUT;
+        return $out;
+
     }
 
 

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "wpeasy/wpeasy-library",
-            "version": "v1.1.0",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wpeasy/wpeasy-library.git",
-                "reference": "e00bb5fe5b8dfcb19763d807da80a40355633568"
+                "reference": "7340cb40c2bcd0bc0b30abd2dc27cf6521cc0619"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wpeasy/wpeasy-library/zipball/e00bb5fe5b8dfcb19763d807da80a40355633568",
-                "reference": "e00bb5fe5b8dfcb19763d807da80a40355633568",
+                "url": "https://api.github.com/repos/wpeasy/wpeasy-library/zipball/7340cb40c2bcd0bc0b30abd2dc27cf6521cc0619",
+                "reference": "7340cb40c2bcd0bc0b30abd2dc27cf6521cc0619",
                 "shasum": ""
             },
             "type": "library",
@@ -37,10 +37,10 @@
             ],
             "description": "Library used by WPEasy WordPress plugins",
             "support": {
-                "source": "https://github.com/wpeasy/wpeasy-library/tree/v1.1.0",
+                "source": "https://github.com/wpeasy/wpeasy-library/tree/v1.1.2",
                 "issues": "https://github.com/wpeasy/wpeasy-library/issues"
             },
-            "time": "2020-01-05T23:01:20+00:00"
+            "time": "2020-02-06T05:12:41+00:00"
         }
     ],
     "packages-dev": [],
