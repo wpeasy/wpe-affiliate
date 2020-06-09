@@ -53,6 +53,8 @@ class WPEasyApplication
 
         add_action('plugins_loaded', [__CLASS__, 'initPlugins']);
 
+        //var_dump(WP_DEBUG);
+
         if(WP_DEBUG) add_action('admin_notices', [__CLASS__, 'adminDebugNotices']);
     }
 
