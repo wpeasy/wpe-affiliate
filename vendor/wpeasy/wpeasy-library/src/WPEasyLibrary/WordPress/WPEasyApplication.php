@@ -43,7 +43,8 @@ class WPEasyApplication
         self::$_init = true;
 
         //Set the default PHP timezone based on WordPress settings
-        date_default_timezone_set(TimezoneHelper::getTimezoneString());
+        // Do not do this.. Site Health Check shows and an error
+        //date_default_timezone_set(TimezoneHelper::getTimezoneString());
 
         self::$firstCallingPluginConf = $callingPluginConfig;
 
@@ -52,8 +53,6 @@ class WPEasyApplication
         add_action('wp_enqueue_scripts', [__CLASS__, 'wp_enqueue_scripts'], 1);
 
         add_action('plugins_loaded', [__CLASS__, 'initPlugins']);
-
-        //var_dump(WP_DEBUG);
 
         if(WP_DEBUG) add_action('admin_notices', [__CLASS__, 'adminDebugNotices']);
     }
