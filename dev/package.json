@@ -13,7 +13,7 @@
   "author": "",
   "license": "proprietary",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "masonry-css": "0.0.6",
     "validator": "^13.0.0",
     "vanilla-modal": "^1.6.5"
